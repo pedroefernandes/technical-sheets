@@ -1,0 +1,24 @@
+<!-- technical-sheet-detail.component.html -->
+<div class="container">
+  <h2>Detalhes da Ficha Técnica</h2>
+
+  <div *ngIf="technicalSheet">
+    <h3>{{ technicalSheet.name }}</h3>
+    <p><strong>Custo Total:</strong> R$ {{ technicalSheet.totalCost | number:'1.2-2' }}</p>
+    <p><strong>Preço Sugerido:</strong> R$ {{ technicalSheet.suggestedPrice | number:'1.2-2' }}</p>
+
+    <h4>Ingredientes:</h4>
+    <ul class="list-group">
+      <li *ngFor="let ingredient of technicalSheet.ingredients" class="list-group-item">
+        {{ ingredient.name }} - {{ ingredient.quantity }} unidades - R$ {{ ingredient.cost | number:'1.2-2' }}
+      </li>
+    </ul>
+
+    <button class="btn btn-secondary mt-3" (click)="goToSheets()"routerLink="fichas">Voltar</button>
+  </div>
+
+  <div *ngIf="!technicalSheet">
+    <p>Ficha técnica não encontrada.</p>
+    <button class="btn btn-secondary" routerLink="fichas">Voltar</button>
+  </div>
+</div>

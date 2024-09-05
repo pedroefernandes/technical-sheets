@@ -1,0 +1,49 @@
+<!-- technical-sheet-form.component.html -->
+<div class="container">
+  <h2>{{ isEditMode ? 'Editar Ficha Técnica' : 'Nova Ficha Técnica' }}</h2>
+
+  <form [formGroup]="form">
+    <div class="mb-3">
+      <label for="name" class="form-label">Nome do Prato</label>
+      <input id="name" class="form-control" formControlName="name" />
+    </div>
+
+    <div formArrayName="ingredients">
+      <h4>Ingredientes</h4>
+      <div *ngFor="let ingredient of ingredients.controls; let i = index" [formGroupName]="i" class="mb-3">
+        <div class="row">
+          <div class="col">
+            <label for="ingredient-name-{{ i }}" class="form-label">Nome</label>
+            <input id="ingredient-name-{{ i }}" class="form-control" formControlName="name" />
+          </div>
+          <div class="col">
+            <label for="ingredient-quantity-{{ i }}" class="form-label">Quantidade</label>
+            <input id="ingredient-quantity-{{ i }}" type="number" class="form-control" formControlName="quantity" />
+          </div>
+          <div class="col">
+            <label for="ingredient-cost-{{ i }}" class="form-label">Custo</label>
+            <input id="ingredient-cost-{{ i }}" type="number" class="form-control" formControlName="cost" />
+          </div>
+          <div class="col-auto">
+            <button type="button" class="btn btn-danger mt-4" (click)="removeIngredient(i)">Remover</button>
+          </div>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addIngredient()">Adicionar Ingrediente</button>
+    </div>
+
+    <div class="mb-3 mt-3">
+      <label for="totalCost" class="form-label">Custo Total</label>
+      <input id="totalCost" type="number" class="form-control" formControlName="totalCost" />
+    </div>
+
+    <div class="mb-3">
+      <label for="suggestedPrice" class="form-label">Preço Sugerido</label>
+      <input id="suggestedPrice" type="number" class="form-control" formControlName="suggestedPrice" />
+    </div>
+
+  </form>
+  <button type="button" (click)="processForm()" class="btn btn-success">{{ isEditMode ? 'Salvar Alterações' : 'Criar Ficha' }}</button>
+  <button type="button" class="btn btn-secondary mx-2" (click)="goToSheets()">Cancelar</button>
+
+</div>
